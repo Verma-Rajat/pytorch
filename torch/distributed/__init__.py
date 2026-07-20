@@ -29,7 +29,7 @@ RNGIndexBlock = _TypeAliasType(
 class StatefulRNGTensor(typing.Protocol):
     """Plain tensor metadata for replaying logical global RNG indices."""
 
-    rng_global_numel: int
+    rng_global_numel: int | torch.SymInt
     rng_index_blocks: tuple[RNGIndexBlock, ...]
 
 

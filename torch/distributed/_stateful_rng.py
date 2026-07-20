@@ -100,7 +100,7 @@ def _is_supported_stateful_rng_op(
 @maybe_run_for_local_tensor
 def _run_stateful_rng_op_rankwise(
     tensor: torch.Tensor,
-    logical_numel: int,
+    logical_numel: int | torch.SymInt,
     start_indices: list[int | torch.SymInt],
     block_sizes: list[int | torch.SymInt],
     block_strides: list[int | torch.SymInt],
@@ -133,7 +133,7 @@ def _run_stateful_rng_op(
     op_call: torch._ops.OpOverload,
     args: tuple[Any, ...],
     kwargs: dict[str, Any] | None,
-    logical_numel: int,
+    logical_numel: int | torch.SymInt,
     index_blocks: tuple[RNGIndexBlock, ...],
 ) -> torch.Tensor:
     """Run an in-place RNG op for selected indices of one logical CUDA draw."""
