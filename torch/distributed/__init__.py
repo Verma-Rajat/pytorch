@@ -5,11 +5,32 @@ import sys
 import traceback
 import typing
 from datetime import timedelta
+from typing_extensions import TypeAliasType as _TypeAliasType
 
 import torch
 
 
 RankType = int | torch.SymInt
+
+
+# (start_index, block_size, block_stride, num_blocks)
+RNGIndexBlock = _TypeAliasType(
+    "RNGIndexBlock",
+    tuple[
+        int | torch.SymInt,
+        int | torch.SymInt,
+        int | torch.SymInt,
+        int | torch.SymInt,
+    ],
+)
+
+
+@typing.runtime_checkable
+class StatefulRNGTensor(typing.Protocol):
+    """Plain tensor metadata for replaying logical global RNG indices."""
+
+    rng_global_numel: int
+    rng_index_blocks: tuple[RNGIndexBlock, ...]
 
 
 log = logging.getLogger(__name__)
